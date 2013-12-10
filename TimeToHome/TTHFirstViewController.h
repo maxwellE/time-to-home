@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AFNetworking.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface TTHFirstViewController : UIViewController
+@interface TTHFirstViewController : UIViewController<CLLocationManagerDelegate>
+
+@property (weak, nonatomic) IBOutlet UILabel *uberTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *busTimeLabel;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
