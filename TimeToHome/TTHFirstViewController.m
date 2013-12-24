@@ -20,7 +20,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
--(NSString *)getUberTimeToHome: (id)responseObject {
+-(NSString *)getTotalTravelTimeForResponseObject: (id)responseObject {
     NSArray *routes = [responseObject objectForKey:@"routes"];
     NSDictionary *route = [routes objectAtIndex:0];
     NSArray *legs = [route objectForKey:@"legs"];
@@ -34,8 +34,19 @@
     NSString *locationCoordinateString = [NSString stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": @"639 Geary Street, San Francisco CA, 94102", @"sensor": @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *time = [self getUberTimeToHome:responseObject];
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
         [_uberTimeLabel setText:time];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+-(void)updateBusWaitTimeTextLabel: (CLLocation *)location {
+    NSString *locationCoordinateString = [NSString stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": @"639 Geary Street, San Francisco CA, 94102", @"sensor": @"true", @"mode": @"transit", @"departure_time": [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        [_busTimeLabel setText:time];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -54,6 +65,7 @@
      didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations lastObject];
     [self updateUberWaitTimeTextLabel:location];
+    [self updateBusWaitTimeTextLabel:location];
 }
 
 - (void)didReceiveMemoryWarning
