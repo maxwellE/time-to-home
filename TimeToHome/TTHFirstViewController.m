@@ -7,6 +7,7 @@
 //
 
 #import "TTHFirstViewController.h"
+#import "TTHAddressSearchViewController.h"
 
 @interface TTHFirstViewController ()
 
@@ -27,7 +28,7 @@
     if (route) {
         return [[[legs objectAtIndex:0] objectForKey:@"duration"] objectForKey:@"text"];
     }
-    return @"Unable to contact the Goog";
+    return @"Error! Please retry.";
 }
 
 - (void)updateUberWaitTimeTextLabel: (CLLocation *)location {
@@ -52,12 +53,26 @@
     }];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"homeAddressSearchSegue"])
+    {
+        TTHAddressSearchViewController *asvc = [segue destinationViewController];
+        asvc.currentUserLocation = [_locationManager location];
+    }
+}
+
+- (void)segueToSettingsViewController:(id)sender {
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (nil == _locationManager)
         _locationManager = [[CLLocationManager alloc] init];
     
     _locationManager.delegate = self;
+    [_locationManager setDistanceFilter:500];
     [_locationManager startMonitoringSignificantLocationChanges];
 }
 
@@ -73,5 +88,4 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 @end

@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *uberTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *busTimeLabel;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+- (IBAction)segueToSettingsViewController:(id)sender;
 
 @end

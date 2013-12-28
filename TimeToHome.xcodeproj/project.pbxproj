@@ -16,13 +16,13 @@
 		0DF955111856E64400DC762A /* TTHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF955101856E64400DC762A /* TTHAppDelegate.m */; };
 		0DF955141856E64400DC762A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DF955121856E64400DC762A /* Main.storyboard */; };
 		0DF955171856E64400DC762A /* TTHFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF955161856E64400DC762A /* TTHFirstViewController.m */; };
-		0DF9551A1856E64400DC762A /* TTHSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF955191856E64400DC762A /* TTHSecondViewController.m */; };
 		0DF9551C1856E64400DC762A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DF9551B1856E64400DC762A /* Images.xcassets */; };
 		0DF955231856E64400DC762A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF955221856E64400DC762A /* XCTest.framework */; };
 		0DF955241856E64400DC762A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF955001856E64400DC762A /* Foundation.framework */; };
 		0DF955251856E64400DC762A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF955041856E64400DC762A /* UIKit.framework */; };
 		0DF9552D1856E64400DC762A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DF9552B1856E64400DC762A /* InfoPlist.strings */; };
 		0DF9552F1856E64400DC762A /* TimeToHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF9552E1856E64400DC762A /* TimeToHomeTests.m */; };
+		B54AB9A0186E3BC400C401CA /* TTHAddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B54AB99F186E3BC400C401CA /* TTHAddressSearchViewController.m */; };
 		F23E69A198084AA392473303 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 268CC318DC1F44EA815A30B6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -51,8 +51,6 @@
 		0DF955131856E64400DC762A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DF955151856E64400DC762A /* TTHFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTHFirstViewController.h; sourceTree = "<group>"; };
 		0DF955161856E64400DC762A /* TTHFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTHFirstViewController.m; sourceTree = "<group>"; };
-		0DF955181856E64400DC762A /* TTHSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTHSecondViewController.h; sourceTree = "<group>"; };
-		0DF955191856E64400DC762A /* TTHSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTHSecondViewController.m; sourceTree = "<group>"; };
 		0DF9551B1856E64400DC762A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0DF955211856E64400DC762A /* TimeToHomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeToHomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF955221856E64400DC762A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -61,6 +59,8 @@
 		0DF9552E1856E64400DC762A /* TimeToHomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeToHomeTests.m; sourceTree = "<group>"; };
 		268CC318DC1F44EA815A30B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A98486C24BFE4FDA8D86E267 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B54AB99E186E3BC400C401CA /* TTHAddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHAddressSearchViewController.h; sourceTree = "<group>"; };
+		B54AB99F186E3BC400C401CA /* TTHAddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHAddressSearchViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,10 +128,10 @@
 				0DF9550F1856E64400DC762A /* TTHAppDelegate.h */,
 				0DF955101856E64400DC762A /* TTHAppDelegate.m */,
 				0DF955121856E64400DC762A /* Main.storyboard */,
+				B54AB99E186E3BC400C401CA /* TTHAddressSearchViewController.h */,
+				B54AB99F186E3BC400C401CA /* TTHAddressSearchViewController.m */,
 				0DF955151856E64400DC762A /* TTHFirstViewController.h */,
 				0DF955161856E64400DC762A /* TTHFirstViewController.m */,
-				0DF955181856E64400DC762A /* TTHSecondViewController.h */,
-				0DF955191856E64400DC762A /* TTHSecondViewController.m */,
 				0DF9551B1856E64400DC762A /* Images.xcassets */,
 				0DF955071856E64400DC762A /* Supporting Files */,
 			);
@@ -299,10 +299,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B54AB9A0186E3BC400C401CA /* TTHAddressSearchViewController.m in Sources */,
 				0DF955171856E64400DC762A /* TTHFirstViewController.m in Sources */,
 				0DF9550D1856E64400DC762A /* main.m in Sources */,
 				0DF955111856E64400DC762A /* TTHAppDelegate.m in Sources */,
-				0DF9551A1856E64400DC762A /* TTHSecondViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
