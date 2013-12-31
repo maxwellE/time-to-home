@@ -23,6 +23,8 @@
 		0DF9552D1856E64400DC762A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0DF9552B1856E64400DC762A /* InfoPlist.strings */; };
 		0DF9552F1856E64400DC762A /* TimeToHomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF9552E1856E64400DC762A /* TimeToHomeTests.m */; };
 		B54AB9A0186E3BC400C401CA /* TTHAddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B54AB99F186E3BC400C401CA /* TTHAddressSearchViewController.m */; };
+		B54ED9E018726BA500D3F17C /* TimeToHomeModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B54ED9DE18726BA500D3F17C /* TimeToHomeModels.xcdatamodeld */; };
+		B54ED9E318726CFA00D3F17C /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = B54ED9E218726CFA00D3F17C /* Location.m */; };
 		F23E69A198084AA392473303 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 268CC318DC1F44EA815A30B6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,9 @@
 		A98486C24BFE4FDA8D86E267 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B54AB99E186E3BC400C401CA /* TTHAddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHAddressSearchViewController.h; sourceTree = "<group>"; };
 		B54AB99F186E3BC400C401CA /* TTHAddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHAddressSearchViewController.m; sourceTree = "<group>"; };
+		B54ED9DF18726BA500D3F17C /* TimeToHomeModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeToHomeModels.xcdatamodel; sourceTree = "<group>"; };
+		B54ED9E118726CFA00D3F17C /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		B54ED9E218726CFA00D3F17C /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +130,9 @@
 		0DF955061856E64400DC762A /* TimeToHome */ = {
 			isa = PBXGroup;
 			children = (
+				B54ED9DE18726BA500D3F17C /* TimeToHomeModels.xcdatamodeld */,
+				B54ED9E118726CFA00D3F17C /* Location.h */,
+				B54ED9E218726CFA00D3F17C /* Location.m */,
 				0DF9550F1856E64400DC762A /* TTHAppDelegate.h */,
 				0DF955101856E64400DC762A /* TTHAppDelegate.m */,
 				0DF955121856E64400DC762A /* Main.storyboard */,
@@ -302,6 +310,8 @@
 				B54AB9A0186E3BC400C401CA /* TTHAddressSearchViewController.m in Sources */,
 				0DF955171856E64400DC762A /* TTHFirstViewController.m in Sources */,
 				0DF9550D1856E64400DC762A /* main.m in Sources */,
+				B54ED9E018726BA500D3F17C /* TimeToHomeModels.xcdatamodeld in Sources */,
+				B54ED9E318726CFA00D3F17C /* Location.m in Sources */,
 				0DF955111856E64400DC762A /* TTHAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +535,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B54ED9DE18726BA500D3F17C /* TimeToHomeModels.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B54ED9DF18726BA500D3F17C /* TimeToHomeModels.xcdatamodel */,
+			);
+			currentVersion = B54ED9DF18726BA500D3F17C /* TimeToHomeModels.xcdatamodel */;
+			path = TimeToHomeModels.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0DF954F51856E64400DC762A /* Project object */;
 }

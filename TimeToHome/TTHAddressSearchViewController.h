@@ -15,6 +15,7 @@
 {
     SPGooglePlacesAutocompleteQuery *searchQuery;
     NSArray *autocompleteResults;
+    NSManagedObjectContext *context;
 }
 
 @property (nonatomic, strong) CLLocation *currentUserLocation;

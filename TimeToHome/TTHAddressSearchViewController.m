@@ -8,6 +8,7 @@
 
 #import "TTHAddressSearchViewController.h"
 #import "SPGooglePlacesAutocomplete.h"
+#import "Location.h"
 
 @interface TTHAddressSearchViewController ()
 
@@ -24,22 +25,26 @@
     return self;
 }
 
--(void) viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     if (!searchQuery) {
       // NEED TO CHANGE THIS KEY
-      searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:@"AIzaSyAFsaDn7vyI8pS53zBgYRxu0HfRwYqH-9E"];
+      searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:@"AIzaSyD8XVQrTkPYFBZkJNCFgsd_QYe9M2WCI8M"];
     }
-
+    [self.searchDisplayController.searchBar becomeFirstResponder];
+    Location *homeLocation = [self grabUserHomeLocation];
+    if (homeLocation) {
+        [self.searchDisplayController.searchBar setText:homeLocation.address];
+    }
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return autocompleteResults.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier = @"autocompleteLocation";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -50,6 +55,36 @@
     [[cell textLabel] setText:place.name];
     return cell;
 }
+
+- (Location *)grabUserHomeLocation
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:[Location entityName] inManagedObjectContext:[Location mainQueueContext]];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit:1];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isHome == TRUE"];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[Location mainQueueContext] executeFetchRequest:fetchRequest error:&error];
+    return fetchedObjects.lastObject;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Location *homeLocation = [self grabUserHomeLocation];
+if (!homeLocation) {
+    homeLocation = [[Location alloc] initWithEntity:[Location entity] insertIntoManagedObjectContext:[Location mainQueueContext]];
+}
+    [homeLocation setIsHome: [[NSNumber alloc] initWithBool:YES]];
+    SPGooglePlacesAutocompletePlace *place = autocompleteResults[indexPath.row];
+    [homeLocation setAddress:place.name];
+    [homeLocation save];
+
+    NSLog(@"Loc: %@", homeLocation.address);
+}
+
 
 - (void)handleSearchForSearchString:(NSString *)searchString
 {
@@ -70,7 +105,7 @@
     }];
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self handleSearchForSearchString:searchString];
     return YES;
@@ -85,6 +120,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.searchDisplayController.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
