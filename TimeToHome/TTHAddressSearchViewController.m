@@ -33,7 +33,7 @@
       searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:@"AIzaSyD8XVQrTkPYFBZkJNCFgsd_QYe9M2WCI8M"];
     }
     [self.searchDisplayController.searchBar becomeFirstResponder];
-    Location *homeLocation = [self grabUserHomeLocation];
+    Location *homeLocation = [Location grabUserHomeLocation];
     if (homeLocation) {
         [self.searchDisplayController.searchBar setText:homeLocation.address];
     }
@@ -56,33 +56,19 @@
     return cell;
 }
 
-- (Location *)grabUserHomeLocation
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:[Location entityName] inManagedObjectContext:[Location mainQueueContext]];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setFetchLimit:1];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isHome == TRUE"];
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[Location mainQueueContext] executeFetchRequest:fetchRequest error:&error];
-    return fetchedObjects.lastObject;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Location *homeLocation = [self grabUserHomeLocation];
-if (!homeLocation) {
-    homeLocation = [[Location alloc] initWithEntity:[Location entity] insertIntoManagedObjectContext:[Location mainQueueContext]];
-}
+    Location *homeLocation = [Location grabUserHomeLocation];
+    if (!homeLocation) {
+        homeLocation = [[Location alloc] initWithEntity:[Location entity] insertIntoManagedObjectContext:[Location mainQueueContext]];
+    }
     [homeLocation setIsHome: [[NSNumber alloc] initWithBool:YES]];
     SPGooglePlacesAutocompletePlace *place = autocompleteResults[indexPath.row];
     [homeLocation setAddress:place.name];
     [homeLocation save];
-
-    NSLog(@"Loc: %@", homeLocation.address);
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:^{
+        [[self presentingViewController] performSelectorInBackground:@selector(updateTimesForHomeAddressChange:) withObject:nil];
+    }];
 }
 
 

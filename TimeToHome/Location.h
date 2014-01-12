@@ -14,4 +14,6 @@
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSNumber * isHome;
 
++ (Location *)grabUserHomeLocation;
+
 @end

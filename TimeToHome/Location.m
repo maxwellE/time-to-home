@@ -28,4 +28,18 @@
     return @"Location";
 }
 
++ (Location *)grabUserHomeLocation {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:[Location entityName] inManagedObjectContext:[Location mainQueueContext]];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit:1];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isHome == TRUE"];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[Location mainQueueContext] executeFetchRequest:fetchRequest error:&error];
+    return fetchedObjects.lastObject;
+}
+
 @end
