@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="CZ4-MO-1fc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="CZ4-MO-1fc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--First View Controller - First-->
@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hri-l8-0Kp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2VE-Yg-loa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uber Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETc-AL-qcL">
@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bus Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sD-bo-eIy">
-                                <rect key="frame" x="37" y="152" width="77" height="21"/>
+                                <rect key="frame" x="41" y="128" width="77" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -37,21 +37,67 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-BZ-Ba3">
-                                <rect key="frame" x="126" y="152" width="0.0" height="21"/>
+                                <rect key="frame" x="126" y="128" width="0.0" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tz0-dm-e5F">
-                                <rect key="frame" x="96" y="186" width="129" height="30"/>
+                                <rect key="frame" x="94" y="151" width="129" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Set Home Address">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="segueToSettingsViewController:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="u7Y-Hp-kTB"/>
                                     <segue destination="BIM-HT-PKA" kind="modal" identifier="homeAddressSearchSegue" id="wgA-XW-fcn"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time To Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ay-ZA-9zk">
+                                <rect key="frame" x="20" y="64" width="111" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time to Work" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGx-YM-4xL">
+                                <rect key="frame" x="20" y="189" width="102" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Uber Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20N-PV-VeV">
+                                <rect key="frame" x="33" y="218" width="85" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5De-NC-Bk7">
+                                <rect key="frame" x="126" y="218" width="92" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bus Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0He-tD-W4p">
+                                <rect key="frame" x="41" y="247" width="77" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ry4-ZT-nw1">
+                                <rect key="frame" x="126" y="247" width="92" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4Z-Ms-cje">
+                                <rect key="frame" x="94" y="276" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Set Work Address">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BIM-HT-PKA" kind="modal" identifier="workAddressSearchSegue" id="pPM-JW-1TN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -59,14 +105,14 @@
                         <constraints>
                             <constraint firstItem="ETc-AL-qcL" firstAttribute="baseline" secondItem="x37-RT-gl7" secondAttribute="baseline" id="8l6-lM-Tes"/>
                             <constraint firstItem="x37-RT-gl7" firstAttribute="leading" secondItem="ETc-AL-qcL" secondAttribute="trailing" constant="8" symbolic="YES" id="AYg-kB-IDh"/>
-                            <constraint firstItem="6sD-bo-eIy" firstAttribute="leading" secondItem="2VE-Yg-loa" secondAttribute="leading" constant="37" id="Jq8-9Z-YU4"/>
+                            <constraint firstItem="6sD-bo-eIy" firstAttribute="leading" secondItem="2VE-Yg-loa" secondAttribute="leading" constant="41" id="Jq8-9Z-YU4"/>
                             <constraint firstItem="ETc-AL-qcL" firstAttribute="leading" secondItem="2VE-Yg-loa" secondAttribute="leading" constant="33" id="VzE-cj-b6o"/>
                             <constraint firstItem="ETc-AL-qcL" firstAttribute="top" secondItem="Mje-u1-n0a" secondAttribute="bottom" constant="79" id="d1V-g8-vMC"/>
                             <constraint firstItem="6sD-bo-eIy" firstAttribute="baseline" secondItem="Ibg-BZ-Ba3" secondAttribute="baseline" id="gBT-mS-K7v"/>
-                            <constraint firstItem="6sD-bo-eIy" firstAttribute="top" secondItem="ETc-AL-qcL" secondAttribute="bottom" constant="32" id="jwg-Qd-oCQ"/>
+                            <constraint firstItem="6sD-bo-eIy" firstAttribute="top" secondItem="ETc-AL-qcL" secondAttribute="bottom" constant="8" id="jwg-Qd-oCQ"/>
                             <constraint firstItem="ETc-AL-qcL" firstAttribute="top" secondItem="x37-RT-gl7" secondAttribute="top" id="mmX-lx-KhZ"/>
                             <constraint firstItem="6sD-bo-eIy" firstAttribute="top" secondItem="Ibg-BZ-Ba3" secondAttribute="top" id="zdM-fF-ova"/>
-                            <constraint firstItem="Ibg-BZ-Ba3" firstAttribute="leading" secondItem="6sD-bo-eIy" secondAttribute="trailing" constant="12" id="zgz-2j-n6Y"/>
+                            <constraint firstItem="Ibg-BZ-Ba3" firstAttribute="leading" secondItem="6sD-bo-eIy" secondAttribute="trailing" constant="8" id="zgz-2j-n6Y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TimeTo" id="GVE-5U-qGl">
@@ -79,11 +125,13 @@
                     <connections>
                         <outlet property="busTimeLabel" destination="Ibg-BZ-Ba3" id="d9Z-Qo-1LA"/>
                         <outlet property="uberTimeLabel" destination="x37-RT-gl7" id="L2N-Te-Wyj"/>
+                        <outlet property="workBusTimeLabel" destination="ry4-ZT-nw1" id="RqR-fA-2Qm"/>
+                        <outlet property="workUberTimeLabel" destination="5De-NC-Bk7" id="EkG-7f-j6A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1040" y="-138"/>
+            <point key="canvasLocation" x="957" y="-154"/>
         </scene>
         <!--Address Search View Controller-->
         <scene sceneID="sVl-EX-jZg">
@@ -94,13 +142,13 @@
                         <viewControllerLayoutGuide type="bottom" id="5FZ-3S-9a5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ecj-ij-6Kb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgT-1v-zPB">
+                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="prominent" placeholder="Search for address" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PgT-1v-zPB">
                                 <rect key="frame" x="0.0" y="24" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                 <connections>
                                     <outlet property="delegate" destination="BIM-HT-PKA" id="3pS-23-JIY"/>
                                 </connections>
@@ -130,6 +178,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="pPM-JW-1TN"/>
+    </inferredMetricsTieBreakers>
 </document>

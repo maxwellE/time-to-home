@@ -19,9 +19,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-
-    }
     return self;
 }
 
@@ -29,14 +26,9 @@
 {
     [super viewWillAppear:animated];
     if (!searchQuery) {
-      // NEED TO CHANGE THIS KEY
       searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] initWithApiKey:@"AIzaSyD8XVQrTkPYFBZkJNCFgsd_QYe9M2WCI8M"];
     }
     [self.searchDisplayController.searchBar becomeFirstResponder];
-    Location *homeLocation = [Location grabUserHomeLocation];
-    if (homeLocation) {
-        [self.searchDisplayController.searchBar setText:homeLocation.address];
-    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -56,7 +48,7 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)saveHomeAddressAndRefreshTimes:(NSIndexPath *)indexPath
 {
     Location *homeLocation = [Location grabUserHomeLocation];
     if (!homeLocation) {
@@ -71,6 +63,30 @@
     }];
 }
 
+- (void)saveWorkAddressAndRefreshTimes:(NSIndexPath *)indexPath
+{
+    Location *workLocation = [Location grabUserWorkLocation];
+    if (!workLocation) {
+        workLocation = [[Location alloc] initWithEntity:[Location entity] insertIntoManagedObjectContext:[Location mainQueueContext]];
+    }
+    [workLocation setIsWork: [[NSNumber alloc] initWithBool:YES]];
+    SPGooglePlacesAutocompletePlace *place = autocompleteResults[indexPath.row];
+    [workLocation setAddress:place.name];
+    [workLocation save];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:^{
+        [[self presentingViewController] performSelectorInBackground:@selector(updateTimesForWorkAddressChange:) withObject:nil];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.segueIdentifier isEqualToString:@"homeAddressSearchSegue"]) {
+        [self saveHomeAddressAndRefreshTimes:indexPath];
+    } else {
+        [self saveWorkAddressAndRefreshTimes:indexPath];
+    }
+}
+
 
 - (void)handleSearchForSearchString:(NSString *)searchString
 {
@@ -78,7 +94,7 @@
     searchQuery.input = searchString;
     [searchQuery fetchPlaces:^(NSArray *places, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not fetch Places"
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not contact Google! Please try again."
                                                             message:error.localizedDescription
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
@@ -100,6 +116,11 @@
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad

@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *uberTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *busTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *workBusTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *workUberTimeLabel;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-- (IBAction)segueToSettingsViewController:(id)sender;
-- (void)updateTimesForHomeAddressChange;
 @end

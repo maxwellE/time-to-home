@@ -19,6 +19,7 @@
 }
 
 @property (nonatomic, strong) CLLocation *currentUserLocation;
+@property (nonatomic, strong) NSString *segueIdentifier;
 
 
 @end

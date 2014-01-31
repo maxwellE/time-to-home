@@ -42,9 +42,13 @@
     return @"Error! Please retry.";
 }
 
-- (void)updateUberWaitTimeTextLabel: (CLLocation *)location {
+- (void)updateUberWaitTimeHomeTextLabel: (CLLocation *)location {
     NSString *locationCoordinateString = [NSString stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude];
     Location *homeLocation = [Location grabUserHomeLocation];
+    if (!homeLocation) {
+        [_uberTimeLabel setText:@"No home address set."];
+        return;
+    }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [homeLocation address], @"sensor": @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
@@ -54,9 +58,29 @@
     }];
 }
 
--(void)updateBusWaitTimeTextLabel: (CLLocation *)location {
+-(void)updateUberWaitTimeWorkTextLabel: (CLLocation *)location {
+    NSString *locationCoordinateString = [NSString stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude];
+    Location *workLocation = [Location grabUserWorkLocation];
+    if (!workLocation) {
+        [_workUberTimeLabel setText:@"No work address set."];
+        return;
+    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [workLocation address], @"sensor": @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        [_workUberTimeLabel setText:time];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+-(void)updateBusWaitTimeHomeTextLabel: (CLLocation *)location {
     NSString *locationCoordinateString = [NSString stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude];
     Location *homeLocation = [Location grabUserHomeLocation];
+    if (!homeLocation) {
+        [_busTimeLabel setText:@"No home address set."];
+        return;
+    }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [homeLocation address], @"sensor": @"true", @"mode": @"transit", @"departure_time": [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
@@ -66,17 +90,27 @@
     }];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"homeAddressSearchSegue"])
-    {
-        TTHAddressSearchViewController *asvc = [segue destinationViewController];
-        asvc.currentUserLocation = [_locationManager location];
+-(void)updateBusWaitTimeWorkTextLabel: (CLLocation *)location {
+    NSString *locationCoordinateString = [NSString stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude];
+    Location *workLocation = [Location grabUserWorkLocation];
+    if (!workLocation) {
+        [_workBusTimeLabel setText:@"No work address set."];
+        return;
     }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [workLocation address], @"sensor": @"true", @"mode": @"transit", @"departure_time": [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        [_workBusTimeLabel setText:time];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
-- (void)segueToSettingsViewController:(id)sender {
-    // Custom code used to prepare to segue to other view controller.
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    TTHAddressSearchViewController *asvc = [segue destinationViewController];
+    asvc.currentUserLocation = [_locationManager location];
+    asvc.segueIdentifier = [segue identifier];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -91,16 +125,23 @@
 
 - (void)updateTimesForHomeAddressChange {
     CLLocation *location = [_locationManager location];
-    [self updateUberWaitTimeTextLabel:location];
-    [self updateBusWaitTimeTextLabel:location];
+    [self updateUberWaitTimeHomeTextLabel:location];
+    [self updateBusWaitTimeHomeTextLabel:location];
+}
+
+-(void)updateTimesForWorkAddressChange {
+    CLLocation *location = [_locationManager location];
+    [self updateUberWaitTimeWorkTextLabel:location];
+    [self updateBusWaitTimeWorkTextLabel:location];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations lastObject];
-    [self updateUberWaitTimeTextLabel:location];
-    [self updateBusWaitTimeTextLabel:location];
-    [manager location];
+    [self updateUberWaitTimeHomeTextLabel:location];
+    [self updateBusWaitTimeHomeTextLabel:location];
+    [self updateUberWaitTimeWorkTextLabel:location];
+    [self updateBusWaitTimeWorkTextLabel:location];
 }
 
 - (void)didReceiveMemoryWarning
