@@ -17,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *workBusTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *workUberTimeLabel;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+
+- (void)reduceLocationAccuracy;
 @end

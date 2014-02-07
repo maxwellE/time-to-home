@@ -21,12 +21,33 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
+- (IBAction)refreshTimeLabels:(id)sender {
+    CLLocation *location = [_locationManager location];
+    [self updateUberWaitTimeHomeTextLabel:location];
+    [self updateBusWaitTimeHomeTextLabel:location];
+    [self updateUberWaitTimeWorkTextLabel:location];
+    [self updateBusWaitTimeWorkTextLabel:location];
+}
 
--(NSString *)getTotalTravelTimeForResponseObject: (id)responseObject {
+- (void)reduceLocationAccuracy {
+    [_locationManager stopUpdatingLocation];
+    [_locationManager startMonitoringSignificantLocationChanges];
+}
+
+-(NSString *)getTotalTravelTimeForResponseObject: (id)responseObject currentValue: (NSString *)value {
+    if (responseObject == nil) {
+        return value;
+    }
     NSArray *routes = [responseObject objectForKey:@"routes"];
+    if (routes == nil || routes.count == 0) {
+        return value;
+    }
     NSDictionary *route = [routes objectAtIndex:0];
     NSArray *legs = [route objectForKey:@"legs"];
     if (route) {
+        if (legs == nil || legs.count == 0) {
+            return value;
+        }
         NSDictionary *legsDictionary = [legs objectAtIndex:0];
         // Will only happen if this is a bus result.
         if ([legsDictionary objectForKey:@"arrival_time"]) {
@@ -51,7 +72,7 @@
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [homeLocation address], @"sensor": @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject currentValue:_uberTimeLabel.text];
         [_uberTimeLabel setText:time];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -67,7 +88,7 @@
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [workLocation address], @"sensor": @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject currentValue:_workUberTimeLabel.text];
         [_workUberTimeLabel setText:time];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -83,7 +104,7 @@
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [homeLocation address], @"sensor": @"true", @"mode": @"transit", @"departure_time": [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject currentValue:_busTimeLabel.text];
         [_busTimeLabel setText:time];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -99,7 +120,7 @@
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET: @"http://maps.googleapis.com/maps/api/directions/json" parameters:@{@"origin": locationCoordinateString, @"destination": [workLocation address], @"sensor": @"true", @"mode": @"transit", @"departure_time": [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject];
+        NSString *time = [self getTotalTravelTimeForResponseObject:responseObject currentValue:_workBusTimeLabel.text];
         [_workBusTimeLabel setText:time];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -115,12 +136,14 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (nil == _locationManager)
+    if (!_locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
+    }
     
     _locationManager.delegate = self;
+    [_locationManager stopMonitoringSignificantLocationChanges];
     [_locationManager setDistanceFilter:500];
-    [_locationManager startMonitoringSignificantLocationChanges];
+    [_locationManager startUpdatingLocation];
 }
 
 - (void)updateTimesForHomeAddressChange {
