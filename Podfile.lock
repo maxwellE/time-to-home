@@ -19,15 +19,18 @@ PODS:
     - AFNetworking/NSURLConnection
   - SPGooglePlacesAutocomplete (1.0.2)
   - SSDataKit (0.2.0)
+  - TestFlightSDK (2.2.3-beta)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - SPGooglePlacesAutocomplete
   - SSDataKit
+  - TestFlightSDK
 
 SPEC CHECKSUMS:
   AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   SPGooglePlacesAutocomplete: b8fc4dfdd33b0b07aaab635e6d9255ef9e9277e8
   SSDataKit: e6b57f2ab358b97ac491bb7dc70af7de9d8544bc
+  TestFlightSDK: a959afdd20fd2a43a198bab1e6aa81f9469e5423
 
 COCOAPODS: 0.29.0

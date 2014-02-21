@@ -7,13 +7,18 @@
 //
 
 #import "TTHAppDelegate.h"
+#import "TTHPageViewController.h"
+#import <TestFlight.h>
 
 @implementation TTHAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
+    [TestFlight takeOff:@"d4a46414-97f3-4442-8014-b3c9044be814"];
+    TTHPageViewController *pvc = [[TTHPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.window.rootViewController = pvc;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							
@@ -21,7 +26,8 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [[self.window rootViewController] performSelectorInBackground:@selector(reduceLocationAccuracy) withObject:nil];
+    SEL reduceLocationAccuracySelector = NSSelectorFromString(@"reduceLocationAccuracy");
+    //    [[[self.window rootViewController] ] performSelectorInBackground:reduceLocationAccuracySelector withObject:nil];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

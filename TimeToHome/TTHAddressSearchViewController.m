@@ -59,7 +59,8 @@
     [homeLocation setAddress:place.name];
     [homeLocation save];
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:^{
-        [[self presentingViewController] performSelectorInBackground:@selector(updateTimesForHomeAddressChange:) withObject:nil];
+        SEL updateTImesForHomeAddressChangeSelector = NSSelectorFromString(@"updateTimesForHomeAddressChange:");
+        [[self presentingViewController] performSelectorInBackground:updateTImesForHomeAddressChangeSelector withObject:nil];
     }];
 }
 
@@ -74,7 +75,8 @@
     [workLocation setAddress:place.name];
     [workLocation save];
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:^{
-        [[self presentingViewController] performSelectorInBackground:@selector(updateTimesForWorkAddressChange:) withObject:nil];
+        SEL updateTimesForWorkAddressChangeSelector = NSSelectorFromString(@"updateTimesForWorkAddressChange:");
+        [[self presentingViewController] performSelectorInBackground:updateTimesForWorkAddressChangeSelector withObject:nil];
     }];
 }
 
