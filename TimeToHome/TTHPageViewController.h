@@ -13,4 +13,6 @@
 @property (nonatomic) NSInteger currentIndex;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSArray *allViewControllers;
+
++(TTHPageViewController *)initializePageViewController;
 @end

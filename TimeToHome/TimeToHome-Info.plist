@@ -26,6 +26,28 @@
 	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>ProximaNova-Black.otf</string>
+		<string>ProximaNova-Bold.otf</string>
+		<string>ProximaNova-BoldIt.otf</string>
+		<string>ProximaNova-Extrabold.otf</string>
+		<string>ProximaNova-Light.otf</string>
+		<string>ProximaNova-LightItalic.otf</string>
+		<string>ProximaNova-RegItalic.otf</string>
+		<string>ProximaNova-Semibold.otf</string>
+		<string>ProximaNova-SemiboldItalic.otf</string>
+		<string>ProximaNovaCond-Light.otf</string>
+		<string>ProximaNovaCond-LightIt.otf</string>
+		<string>ProximaNovaCond-Regular.otf</string>
+		<string>ProximaNovaCond-RegularIt.otf</string>
+		<string>ProximaNovaCond-Semibold.otf</string>
+		<string>ProximaNovaCond-SemiboldIt.otf</string>
+		<string>Arvo-Bold.ttf</string>
+		<string>ArvoBoldItalic.ttf</string>
+		<string>Arvo-Italic.ttf</string>
+		<string>Arvo-Regular.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

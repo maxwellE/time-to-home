@@ -22,6 +22,21 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_headerLabel setFont:[UIFont fontWithName:@"ProximaNova-Bold" size:26.0]];
+    [_uberTimeTitleLabel setFont:[UIFont fontWithName:@"ProximaNova-Light" size:19.0]];
+    [_busTimeTitleLabel setFont:[UIFont fontWithName:@"ProximaNova-Light" size:19.0]];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refreshTimeLabels];
+}
+
 - (void)refreshTimeLabels {
     TTHPageViewController *pvc = (TTHPageViewController *)[self parentViewController];
     CLLocation *location = [[pvc locationManager] location];
@@ -52,10 +67,17 @@
             double trueTotalBusTime = ceil([arrivalTime timeIntervalSinceDate:currentTime]);
             int totalBusTimeInMinutes = trueTotalBusTime / 60;
             return [NSString stringWithFormat:@"%d", totalBusTimeInMinutes];
+        } else {
+            NSInteger timeInSeconds = [[[legsDictionary objectForKey:@"duration"] objectForKey:@"value"] integerValue];
+            if (timeInSeconds <= 60) {
+                return @"1";
+            } else {
+                int timeInMinutes = timeInSeconds / 60;
+                return [NSString stringWithFormat:@"%d", timeInMinutes];
+            }
         }
-        return [[legsDictionary objectForKey:@"duration"] objectForKey:@"text"];
     }
-    return @"Error! Please retry.";
+    return @"N/A";
 }
 
 - (void)updateUberWaitTimeHomeTextLabel: (CLLocation *)location {

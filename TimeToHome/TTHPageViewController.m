@@ -37,19 +37,19 @@
     [_locationManager startUpdatingLocation];
 }
 
--(id)initWithTransitionStyle:(UIPageViewControllerTransitionStyle)style navigationOrientation:(UIPageViewControllerNavigationOrientation)navigationOrientation options:(NSDictionary *)options
++(TTHPageViewController *)initializePageViewController
 {
-    self = [super initWithTransitionStyle:style navigationOrientation:navigationOrientation options:options];
-    if (self) {
-        _currentIndex = 0;
-        TTHFirstViewController *firstViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"FirstViewController"];
-        [self setViewControllers:@[firstViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-        [self setDelegate:self];
-        [self setDataSource:self];
-        TTHSecondViewController *secondViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"SecondViewController"];
-        _allViewControllers = @[firstViewController, secondViewController];
+    TTHPageViewController *pvc = (TTHPageViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PageViewController"];
+    if (pvc) {
+        pvc.currentIndex = 0;
+        TTHFirstViewController *firstViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FirstViewController"];
+        [pvc setViewControllers:@[firstViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        [pvc setDelegate:pvc];
+        [pvc setDataSource:pvc];
+        TTHSecondViewController *secondViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SecondViewController"];
+        pvc.allViewControllers = @[firstViewController, secondViewController];
     }
-    return self;
+    return pvc;
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
@@ -79,16 +79,6 @@
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     // The selected item reflected in the page indicator.
     return 0;
-}
-
-#pragma "Location Manager Delegate Code"
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    for (id viewController in _allViewControllers) {
-        SEL selector = NSSelectorFromString(@"refreshTimeLabels");
-        [viewController performSelector:selector withObject:nil];
-    }
 }
 
 -(UIStoryboard *)storyboard {

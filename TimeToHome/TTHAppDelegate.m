@@ -16,7 +16,7 @@
 {
     // Override point for customization after application launch.
     [TestFlight takeOff:@"d4a46414-97f3-4442-8014-b3c9044be814"];
-    TTHPageViewController *pvc = [[TTHPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    TTHPageViewController *pvc = [TTHPageViewController initializePageViewController];
     self.window.rootViewController = pvc;
     [self.window makeKeyAndVisible];
     return YES;

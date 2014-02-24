@@ -24,7 +24,7 @@
 	// Do any additional setup after loading the view.
 }
 
--(void) viewWillAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self refreshTimeLabels];
@@ -101,11 +101,21 @@
             NSDate *arrivalTime = [[NSDate alloc] initWithTimeIntervalSince1970: [arrivalTimeValue doubleValue]];
             double trueTotalBusTime = ceil([arrivalTime timeIntervalSinceDate:currentTime]);
             int totalBusTimeInMinutes = trueTotalBusTime / 60;
+            if (trueTotalBusTime <= 60) {
+                totalBusTimeInMinutes = 1;
+            }
             return [NSString stringWithFormat:@"%d", totalBusTimeInMinutes];
+        } else {
+            NSInteger timeInSeconds = [[[legsDictionary objectForKey:@"duration"] objectForKey:@"value"] integerValue];
+            if (timeInSeconds <= 60) {
+                return @"1";
+            } else {
+                int timeInMinutes = timeInSeconds / 60;
+                return [NSString stringWithFormat:@"%d", timeInMinutes];
+            }
         }
-        return [[legsDictionary objectForKey:@"duration"] objectForKey:@"text"];
     }
-    return @"Error! Please retry.";
+    return @"N/A";
 }
 
 @end
